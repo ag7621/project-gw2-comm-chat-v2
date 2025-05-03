@@ -1,19 +1,19 @@
 import { useState } from 'react';
 import Navbar from './components/Navbar';
-import './App.css';
 import Form from './components/Form';
 import List from './components/List';
+import bossList from './Data';
+import './App.css';
 
 function App() {
-  const [count, setCount] = useState(0);
+  const [data, setData] = useState(bossList);
 
   return (
     <>
       <header>
         <Navbar />
+        <hr />
       </header>
-
-      <hr />
 
       <main>
         <List />
@@ -21,7 +21,7 @@ function App() {
 
       <hr />
 
-      <Form />
+      <Form bossList={data} />
     </>
   );
 }
