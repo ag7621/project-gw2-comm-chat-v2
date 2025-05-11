@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-function Form({ bossList }) {
+function Form({ onAddEntry, bossList }) {
   const [selectedBoss, setSelectedBoss] = useState('Vale Guardian');
   const [description, setDescription] = useState('');
   const [count, setCount] = useState(0);
@@ -9,8 +9,9 @@ function Form({ bossList }) {
     e.preventDefault();
     const newEntry = { entry: description };
 
-    console.log(selectedBoss);
     console.log(newEntry);
+
+    onAddEntry(selectedBoss, newEntry);
 
     setDescription('');
   }

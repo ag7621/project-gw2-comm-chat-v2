@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Navbar from './components/Navbar';
 import Form from './components/Form';
 import List from './components/List';
@@ -7,6 +7,26 @@ import './App.css';
 
 function App() {
   const [data, setData] = useState(bossList);
+
+  function handleAddEntry(selectedBoss, newEntry) {
+    setData((prevData) =>
+      prevData.map((boss) =>
+        boss.name === selectedBoss
+          ? {
+              ...boss,
+              entries: [...boss.entries, newEntry],
+            }
+          : boss
+      )
+    );
+  }
+
+  useEffect(() => {
+    console.log('data change: ', data);
+    data.forEach((item) => {
+      console.log(item);
+    });
+  }, [data]);
 
   return (
     <>
@@ -21,7 +41,7 @@ function App() {
 
       <hr />
 
-      <Form bossList={data} />
+      <Form onAddEntry={handleAddEntry} bossList={data} />
     </>
   );
 }
