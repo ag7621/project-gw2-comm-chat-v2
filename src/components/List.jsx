@@ -1,12 +1,25 @@
 import React from 'react';
 import Item from './Item';
 
-function List() {
+function List({ wing }) {
   return (
-    <ol>
-      <Item />
-      <Item />
-    </ol>
+    <>
+      <h3>{wing.wing}</h3>
+      <ol>
+        {wing.bosses.map((boss) => (
+          // <p>{boss.name}</p>
+          <Item boss={boss} />
+        ))}
+      </ol>
+    </>
+
+    // <ol>
+
+    //   {/* {entryData.map((bossName) => (
+    //     <h3>{bossName.name}</h3>
+    //   ))} */}
+    //   {/* <Item/> */}
+    // </ol>
   );
 }
 

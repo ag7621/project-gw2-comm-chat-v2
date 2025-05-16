@@ -36,7 +36,11 @@ function App() {
       </header>
 
       <main>
-        <List />
+        {/* <List entryData={data} /> */}
+        {data.map((wing) => (
+          // <h3>{wing.wing}</h3>
+          <List wing={wing} />
+        ))}
       </main>
 
       <hr />
