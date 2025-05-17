@@ -45,3 +45,11 @@ nav {
   display: flex;
   justify-content: space-around;
 }
+
+.tab-page {
+  display: none;
+}
+
+.tab-page.active {
+  display: block;
+}
