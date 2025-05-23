@@ -4,6 +4,7 @@ import Form from './components/Form';
 import List from './components/List';
 import bossList from './Data';
 import './App.css';
+import CopyButton from './components/CopyButton';
 
 function App() {
   const [data, setData] = useState(bossList);
@@ -18,6 +19,19 @@ function App() {
           ? {
               ...boss,
               entries: [...boss.entries, newEntry],
+            }
+          : boss
+      )
+    );
+  }
+
+  function handleDeleteEntry(entryId, bossName) {
+    setData((prevData) =>
+      prevData.map((boss) =>
+        boss.name === bossName
+          ? {
+              ...boss,
+              entries: boss.entries.filter((entry) => entry.id !== entryId),
             }
           : boss
       )
@@ -39,7 +53,9 @@ function App() {
   return (
     <div className="container">
       <header>
-        <h1>GW2 Chat</h1>
+        <div>
+          <h1>GW2 Chat</h1>
+        </div>
         <nav>
           <button onClick={handleActiveTab} value={1}>
             Wing 1
@@ -54,7 +70,6 @@ function App() {
             Wing 4
           </button>
         </nav>
-        <hr />
       </header>
 
       <main>
@@ -66,7 +81,15 @@ function App() {
                   <h3>{boss.name}</h3>
                   <ol>
                     {boss.entries.map((entry) => (
-                      <li>{entry.entry}</li>
+                      <li>
+                        <p>{entry.entry}</p>
+                        <button
+                          onClick={() => handleDeleteEntry(entry.id, boss.name)}
+                        >
+                          Delete
+                        </button>
+                        <CopyButton text={entry.entry} />
+                      </li>
                     ))}
                   </ol>
                 </li>
@@ -76,7 +99,6 @@ function App() {
         </ul>
       </main>
 
-      {/* <hr /> */}
       <footer>
         <Form onAddEntry={handleAddEntry} bossList={data} />
       </footer>
