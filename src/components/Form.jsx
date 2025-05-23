@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { v4 as uuidv4 } from 'uuid';
 
 function Form({ onAddEntry, bossList }) {
   const [selectedBoss, setSelectedBoss] = useState('Vale Guardian');
@@ -7,9 +8,11 @@ function Form({ onAddEntry, bossList }) {
 
   function handleSubmit(e) {
     e.preventDefault();
-    const newEntry = { entry: description };
 
-    console.log(newEntry);
+    if (!description) return;
+
+    const newId = uuidv4();
+    const newEntry = { id: newId, entry: description };
 
     onAddEntry(selectedBoss, newEntry);
 
@@ -17,8 +20,8 @@ function Form({ onAddEntry, bossList }) {
   }
 
   function handleOnChange(e) {
-    setDescription(e.target.value);
     setCount(e.target.value.length);
+    setDescription(e.target.value);
   }
 
   return (

@@ -8,6 +8,7 @@ import './App.css';
 function App() {
   const [data, setData] = useState(bossList);
   const [selectedWing, setSelectedWing] = useState(1);
+
   const filteredList = data.filter((boss) => boss.wing === selectedWing);
 
   function handleAddEntry(selectedBoss, newEntry) {
@@ -36,45 +37,50 @@ function App() {
   }, [data]);
 
   return (
-    <>
+    <div className="container">
       <header>
         <h1>GW2 Chat</h1>
-        <div className="tab-list">
+        <nav>
           <button onClick={handleActiveTab} value={1}>
-            Tab 1
+            Wing 1
           </button>
           <button onClick={handleActiveTab} value={2}>
-            Tab 2
+            Wing 2
           </button>
           <button onClick={handleActiveTab} value={3}>
-            Tab 3
+            Wing3
           </button>
           <button onClick={handleActiveTab} value={4}>
-            Tab 4
+            Wing 4
           </button>
-        </div>
+        </nav>
         <hr />
       </header>
 
       <main>
-        <div className="tab-content">
-          {filteredList.map((item) => (
+        <ul className="content">
+          {filteredList.map((boss) => (
             <>
-              <h3>{item.name}</h3>
-              <ol>
-                {item.entries.map((entry) => (
-                  <li>{entry.entry}</li>
-                ))}
-              </ol>
+              {boss.entries.length > 0 ? (
+                <li>
+                  <h3>{boss.name}</h3>
+                  <ol>
+                    {boss.entries.map((entry) => (
+                      <li>{entry.entry}</li>
+                    ))}
+                  </ol>
+                </li>
+              ) : null}
             </>
           ))}
-        </div>
+        </ul>
       </main>
 
-      <hr />
-
-      <Form onAddEntry={handleAddEntry} bossList={data} />
-    </>
+      {/* <hr /> */}
+      <footer>
+        <Form onAddEntry={handleAddEntry} bossList={data} />
+      </footer>
+    </div>
   );
 }
 
